@@ -1,0 +1,44 @@
+# pyproject.toml — the single configuration file for this Python project.
+#
+# Python packaging tools (pip, build, pytest, ruff) all read this file.
+# Think of it as package.json for Python projects.
+
+[build-system]
+# Tells pip HOW to build this package into a distributable artifact.
+# "setuptools" is the most common Python build backend.
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+# Basic metadata. "name" is what people type in `pip install <name>`.
+name = "sic2"
+version = "0.1.0"
+description = "Secret scanner for source code repositories"
+# Prevents installation on older Python versions that lack features we use.
+requires-python = ">=3.10"
+
+# Packages that MUST be installed for the app to run.
+dependencies = [
+    "click>=8.1",   # click is a library for building command-line interfaces
+]
+
+[project.optional-dependencies]
+# Extra packages only needed during development (testing, linting).
+# Install with: pip install -e ".[dev]"
+dev = [
+    "pytest>=8.0",  # test runner
+    "ruff>=0.4",    # fast linter + formatter
+]
+
+[project.scripts]
+# Creates a `sic2` command in the shell after `pip install`.
+# Format: "command-name" = "python.module:function"
+sic2 = "sic2.cli:main"
+
+[tool.setuptools.packages.find]
+# Tells setuptools to look for Python packages inside the `src/` folder.
+where = ["src"]
+
+[tool.ruff]
+line-length = 100        # max characters per line before ruff complains
+target-version = "py311" # lint rules tuned for Python 3.11+
