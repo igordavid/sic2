@@ -27,7 +27,9 @@ dependencies = [
 # Install with: pip install -e ".[dev]"
 dev = [
     "pytest>=8.0",  # test runner
-    "ruff>=0.4",    # fast linter + formatter
+    "ruff>=0.15,<0.16",    # fast linter + formatter compatible with Python 3.10
+    "mypy>=1.7,<2.0",      # static type checker
+    "pre-commit>=3.4,<4.0",# git hook manager
 ]
 
 [project.scripts]
@@ -41,4 +43,15 @@ where = ["src"]
 
 [tool.ruff]
 line-length = 100        # max characters per line before ruff complains
-target-version = "py311" # lint rules tuned for Python 3.11+
+target-version = "py310" # lint rules tuned for Python 3.10+
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "C"]
+ignore = ["E203"]
+
+[tool.mypy]
+python_version = "3.10"
+ignore_missing_imports = true
+allow_untyped_decorators = true
+strict = false
+files = ["src"]

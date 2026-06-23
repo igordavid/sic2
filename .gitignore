@@ -6,6 +6,7 @@ __pycache__/
 
 # Virtual environments
 .venv/
+.venv_*/     # temporary test venvs
 venv/
 env/
 
@@ -19,6 +20,9 @@ build/
 .pytest_cache/
 .coverage
 htmlcov/
+
+# MyPy
+.mypy_cache/
 
 # Ruff
 .ruff_cache/

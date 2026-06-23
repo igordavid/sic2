@@ -70,14 +70,14 @@ Use `yield` to separate setup from teardown:
 def temporary_file():
     """Create a file, then delete it."""
     file_path = "/tmp/test_file.txt"
-    
+
     # Setup
     with open(file_path, "w") as f:
         f.write("test content")
-    
+
     # Provide to test
     yield file_path
-    
+
     # Teardown (cleanup)
     os.remove(file_path)
 ```
@@ -206,7 +206,7 @@ def create_user():
 def test_with_factory(create_user):
     alice = create_user("Alice")
     bob = create_user("Bob", active=False)
-    
+
     assert alice["name"] == "Alice"
     assert bob["active"] is False
 ```

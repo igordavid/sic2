@@ -96,6 +96,22 @@ Data flows one way: **CLI → Scanner → Reporter**. Adding a new secret type m
 
 ## Development
 
+### Initial setup
+
+```bash
+# Create and activate a local virtual environment
+python -m venv .venv
+source .venv/bin/activate       # Windows: .venv\Scripts\activate
+
+# Install the project plus developer tooling
+pip install -e ".[dev]"
+
+# Install Git hooks for consistent linting and type checking
+pre-commit install
+```
+
+### Running checks locally
+
 ```bash
 # Run tests
 pytest
@@ -103,14 +119,40 @@ pytest
 # Run a specific test
 pytest tests/test_scanner.py::test_name -v
 
-# Lint and format
+# Lint and format code
 ruff check .
 ruff format .
+
+# Static type checking
+mypy src
+```
+
+### Pre-commit hooks
+
+This project uses `pre-commit` to automatically run checks before each commit:
+
+```bash
+# Hooks run automatically on `git commit`
+# If hooks fail, your commit is rejected (allowing you to fix issues)
+
+# To manually run all hooks on all files:
+pre-commit run --all-files
+
+# To bypass hooks (not recommended):
+git commit --no-verify
 ```
 
 ---
 
 ## CI/CD Integration
+
+This repository includes a GitHub Actions workflow that runs the same checks used locally. Every push to `main`/`master` or pull request will:
+
+1. Run `ruff check .` — lint and code style
+2. Run `mypy src` — static type checking
+3. Run `pytest -q` — unit tests
+
+View the workflow at [.github/workflows/ci.yml](.github/workflows/ci.yml).
 
 sic2 exits with code `1` if any secrets are found, making it easy to fail a pipeline:
 

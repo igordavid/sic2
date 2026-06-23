@@ -117,14 +117,14 @@ def test_reporter_json_includes_severity():
 class TestScanner:
     def test_empty_directory(self):
         pass
-    
+
     def test_large_files(self):
         pass
 
 class TestRules:
     def test_aws_key_detection(self):
         pass
-    
+
     def test_github_token_detection(self):
         pass
 ```
@@ -302,7 +302,7 @@ class TestScanner:
     @pytest.mark.unit
     def test_empty_directory(self):
         pass
-    
+
     @pytest.mark.integration
     @pytest.mark.slow
     def test_large_repository(self):
@@ -380,7 +380,7 @@ def test_user_creation(user_factory):
    # BAD: tests depend on each other
    test_create_user()  # must run first
    test_list_users()   # depends on above
-   
+
    # GOOD: each test is independent
    test_list_empty_users()
    test_list_users_with_data(users_fixture)
@@ -392,7 +392,7 @@ def test_user_creation(user_factory):
    class TestBase:
        def setup_method(self):
            self.data = expensive_setup()
-   
+
    # GOOD: use fixtures
    @pytest.fixture
    def data():
@@ -441,7 +441,7 @@ jobs:
   fast-tests:
     steps:
       - run: pytest tests/unit -m "not slow"
-  
+
   full-tests:
     steps:
       - run: pytest tests/ --cov=src

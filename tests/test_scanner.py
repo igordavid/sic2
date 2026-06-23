@@ -14,9 +14,6 @@ from sic2.scanner import (
     _should_skip_file,
     _should_skip_dir,
     _scan_file,
-    Finding,
-    BINARY_EXTENSIONS,
-    SKIP_DIRS,
 )
 
 
@@ -258,7 +255,11 @@ class TestScanPath:
         token = "ghp_" + "X" * 36
         write_file(tmp_path, "file1.py", 'key = "AKIAIOSFODNN7EXAMPLE"\n')
         write_file(tmp_path, "file2.sh", f'token = "{token}"\n')
-        write_file(tmp_path, "file3.env", 'key2 = "AKIAIOSFODNN7EXAMPLE"\n' + f'token2 = "{token}"\n')
+        write_file(
+            tmp_path,
+            "file3.env",
+            'key2 = "AKIAIOSFODNN7EXAMPLE"\n' + f'token2 = "{token}"\n',
+        )
 
         findings = scan_path(tmp_path)
 
@@ -268,7 +269,7 @@ class TestScanPath:
         """Should detect different types of secrets."""
         content = (
             'aws_key = "AKIAIOSFODNN7EXAMPLE"\n'
-            f'github = "ghp_' + 'Z' * 36 + '"\n'
+            'github = "ghp_' + 'Z' * 36 + '"\n'
         )
         write_file(tmp_path, "creds.py", content)
 

@@ -29,7 +29,7 @@ from unittest.mock import Mock
 def test_with_mock():
     mock_logger = Mock()
     mock_logger.debug("message")
-    
+
     mock_logger.debug.assert_called_once_with("message")
 ```
 
@@ -61,10 +61,10 @@ from unittest.mock import patch
 def test_api_call(mock_get):
     mock_get.return_value.status_code = 200
     mock_get.return_value.json.return_value = {"status": "ok"}
-    
+
     import requests
     response = requests.get("http://api.example.com")
-    
+
     assert response.json()["status"] == "ok"
     mock_get.assert_called_once()
 ```
@@ -75,7 +75,7 @@ Context manager syntax:
 def test_api_call():
     with patch("requests.get") as mock_get:
         mock_get.return_value.json.return_value = {"data": "mocked"}
-        
+
         import requests
         response = requests.get("http://api.example.com")
         assert response.json()["data"] == "mocked"
@@ -152,7 +152,7 @@ from unittest.mock import patch, call
 @patch("mymodule.expensive_operation", wraps=mymodule.expensive_operation)
 def test_spy(mock_expensive):
     result = mymodule.expensive_operation(5)
-    
+
     # Real function was called and executed
     assert result == 10
     mock_expensive.assert_called_once_with(5)
@@ -163,7 +163,7 @@ def test_spy(mock_expensive):
 @patch("mymodule.expensive_operation", return_value=10)
 def test_mock(mock_expensive):
     result = mymodule.expensive_operation(5)
-    
+
     # Real function was NOT called
     assert result == 10
 ```
@@ -194,7 +194,7 @@ def test_with_mocked_api(mocked_api):
 @patch("external_lib.fetch_data")
 def test_with_external_lib(mock_fetch):
     mock_fetch.return_value = [1, 2, 3, 4, 5]
-    
+
     result = my_function_using_external_lib()
     assert len(result) == 5
 ```
@@ -206,7 +206,7 @@ def test_with_env(monkeypatch):
     """monkeypatch is a built-in pytest fixture."""
     monkeypatch.setenv("API_KEY", "test-key-123")
     monkeypatch.setenv("DEBUG", "1")
-    
+
     assert os.getenv("API_KEY") == "test-key-123"
     # Auto-reverted after test
 ```
@@ -220,7 +220,7 @@ from datetime import datetime
 @patch("datetime.datetime")
 def test_with_time(mock_datetime):
     mock_datetime.now.return_value = datetime(2024, 1, 1, 12, 0, 0)
-    
+
     result = get_current_timestamp()
     assert result.year == 2024
 ```
@@ -234,7 +234,7 @@ from unittest.mock import mock_open, patch
 def test_file_read(mock_file):
     with open("any_file.txt") as f:
         content = f.read()
-    
+
     assert content == "file content"
     mock_file.assert_called_once_with("any_file.txt")
 ```
@@ -247,10 +247,10 @@ def test_database_usage(mock_db_class):
     mock_instance = MagicMock()
     mock_db_class.return_value = mock_instance
     mock_instance.query.return_value = [1, 2, 3]
-    
+
     db = Database()
     result = db.query("SELECT *")
-    
+
     assert result == [1, 2, 3]
     mock_instance.query.assert_called_once()
 ```
@@ -283,7 +283,7 @@ assert mock(5) == 10
 class MyClass:
     def method_a(self):
         return "a"
-    
+
     def method_b(self):
         return "b"
 
